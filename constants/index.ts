@@ -1,39 +1,37 @@
-import ROUTES from "./routes";
-
 export const sidebarLinks = [
   {
     imgURL: "/icons/home.svg",
-    route: ROUTES.HOME,
+    route: "/",
     label: "Home",
   },
   {
     imgURL: "/icons/users.svg",
-    route: ROUTES.COMUNITY,
+    route: "/community",
     label: "Community",
   },
   {
     imgURL: "/icons/star.svg",
-    route: ROUTES.COLLECTION,
+    route: "/collection",
     label: "Collections",
   },
   {
     imgURL: "/icons/suitcase.svg",
-    route: ROUTES.JOBS,
+    route: "/jobs",
     label: "Find Jobs",
   },
   {
     imgURL: "/icons/tag.svg",
-    route: ROUTES.TAGS,
+    route: "/tags",
     label: "Tags",
   },
   {
     imgURL: "/icons/user.svg",
-    route: ROUTES.PROFILE,
+    route: "/profile",
     label: "Profile",
   },
   {
     imgURL: "/icons/question.svg",
-    route: ROUTES.ASK_QUESTION,
+    route: "/ask-question",
     label: "Ask a question",
   },
 ];
