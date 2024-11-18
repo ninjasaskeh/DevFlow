@@ -3,8 +3,10 @@ import localFont from "next/font/local";
 import React from "react";
 
 import "./globals.css";
-import Navbar from "@/components/navigation/navbar";
 import ThemeProvider from "@/context/Theme";
+import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const inter = localFont({
   src: "./fonts/InterVF.ttf",
@@ -25,27 +27,31 @@ export const metadata: Metadata = {
     icon: "/images/site-logo.svg",
   },
 };
-export default function RootLayout({
+const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
+  const session = await auth();
   return (
     <html lang="en" suppressHydrationWarning>
-      {/*  kalo .className tu biar di pake ama semua tulisan, kalo .variable dia harus dipanggil dulu */}
-      <body
-        className={`${inter.className}  ${spaceGrotesk.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+      <SessionProvider session={session}>
+        {/*  kalo .className tu biar di pake ama semua tulisan, kalo .variable dia harus dipanggil dulu */}
+        <body
+          className={`${inter.className}  ${spaceGrotesk.variable} antialiased`}
         >
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   );
-}
+};
+export default RootLayout;
