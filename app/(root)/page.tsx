@@ -3,36 +3,43 @@ import Link from "next/link";
 import ROUTES from "@/constants/routes";
 import LocalSearch from "@/components/search/LocalSearch";
 import HomeFilter from "@/components/filters/HomeFilter";
+import QuestionCard from "@/components/cards/QuestionCard";
 
 const questions = [
   {
     _id: "1",
     title: "How to create a custom hook in React?",
-    description: "Learn how to create a custom hook in React.",
     tags: [
       { _id: "1", name: "react" },
       { _id: "2", name: "javascript" },
     ],
-    author: { _id: "1", name: "John Doe" },
+    author: {
+      _id: "1",
+      name: "John Doe",
+      image: "https://avatar.iran.liara.run/public/88",
+    },
     upvotes: 10,
     answers: 5,
     views: 100,
-    cretatedAt: new Date(),
+    createdAt: new Date(),
   },
   {
     _id: "2",
     title: "How to create a new Next.js project?",
-    description: "Learn how to create a new Next.js project.",
     tags: [
-      { _id: "1", name: "nextjs" },
-      { _id: "2", name: "react" },
-      { _id: "3", name: "javascript" },
+      { _id: "3", name: "nextjs" },
+      { _id: "1", name: "react" },
+      { _id: "2", name: "javascript" },
     ],
-    author: { _id: "1", name: "John Doe" },
+    author: {
+      _id: "1",
+      name: "John Doe",
+      image: "https://avatar.iran.liara.run/public/88",
+    },
     upvotes: 10,
     answers: 5,
     views: 100,
-    cretatedAt: new Date(),
+    createdAt: new Date("2023-01-01"),
   },
 ];
 
@@ -52,6 +59,8 @@ const Home = async ({ searchParams }: SearchParams) => {
 
     return matchesQuery && matchesFilter;
   });
+
+  console.log(questions);
   return (
     <>
       <section className="flex w-full flex-col-reverse sm:flex-row justify-between gap-4 sm:items-center">
@@ -74,7 +83,7 @@ const Home = async ({ searchParams }: SearchParams) => {
       <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
-          <h1 key={question._id}>{question.title}</h1>
+          <QuestionCard key={question._id} question={question} />
         ))}
       </div>
     </>
