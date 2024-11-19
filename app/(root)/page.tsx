@@ -27,8 +27,8 @@ const questions = [
     _id: "2",
     title: "How to create a new Next.js project?",
     tags: [
-      { _id: "3", name: "nextjs" },
       { _id: "1", name: "react" },
+      { _id: "3", name: "nextjs" },
       { _id: "2", name: "javascript" },
     ],
     author: {
