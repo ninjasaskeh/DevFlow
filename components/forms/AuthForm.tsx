@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import {
   DefaultValues,
   FieldValues,
@@ -20,7 +21,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import ROUTES from "@/constants/routes";
 
 interface AuthFormProps<T extends FieldValues> {
@@ -65,7 +65,7 @@ const AuthForm = <T extends FieldValues>({
                     required
                     type={field.name === "password" ? "password" : "text"}
                     {...field}
-                    className="paraghraph-regular background900_dark300 light-border-2 text-dark300_light700 no-focus min-h-12 rounded-1.5 border"
+                    className="paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 no-focus min-h-12 rounded-1.5 border"
                   />
                 </FormControl>
                 <FormMessage />
@@ -76,7 +76,7 @@ const AuthForm = <T extends FieldValues>({
 
         <Button
           disabled={form.formState.isSubmitting}
-          className="primary-gradient paraghraph-medium min-h-12 w-full rounded-2 px-4 py-3 font-inter !text-light-900"
+          className="primary-gradient paragraph-medium min-h-12 w-full rounded-2 px-4 py-3 font-inter !text-light-900"
         >
           {form.formState.isSubmitting
             ? buttonText === "Sign In"
@@ -90,7 +90,7 @@ const AuthForm = <T extends FieldValues>({
             Dont have an account?{" "}
             <Link
               href={ROUTES.SIGN_IN}
-              className="paraghraph-semibold primary-text-gradient"
+              className="paragraph-semibold primary-text-gradient"
             >
               Sign Up
             </Link>
@@ -100,7 +100,7 @@ const AuthForm = <T extends FieldValues>({
             Already have an account?{" "}
             <Link
               href={ROUTES.SIGN_IN}
-              className="paraghraph-semibold primary-text-gradient"
+              className="paragraph-semibold primary-text-gradient"
             >
               Sign In
             </Link>

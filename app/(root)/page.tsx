@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import ROUTES from "@/constants/routes";
-import LocalSearch from "@/components/search/LocalSearch";
-import HomeFilter from "@/components/filters/HomeFilter";
+
 import QuestionCard from "@/components/cards/QuestionCard";
+import HomeFilter from "@/components/filters/HomeFilter";
+import LocalSearch from "@/components/search/LocalSearch";
+import { Button } from "@/components/ui/button";
+import ROUTES from "@/constants/routes";
 
 const questions = [
   {
@@ -63,10 +64,10 @@ const Home = async ({ searchParams }: SearchParams) => {
   console.log(questions);
   return (
     <>
-      <section className="flex w-full flex-col-reverse sm:flex-row justify-between gap-4 sm:items-center">
+      <section className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">All Qustions</h1>
         <Button
-          className="primary-gradient min-h-[46px] px4 py-3 !text-light-900"
+          className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
           asChild
         >
           <Link href={ROUTES.ASK_QUESTION}>Ask a Question</Link>

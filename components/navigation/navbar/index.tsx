@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import Theme from "@/components/navigation/navbar/Theme";
 import MobileNavigation from "@/components/navigation/navbar/MobileNavigation";
+import Theme from "@/components/navigation/navbar/Theme";
 
 const Navbar = () => {
   return (
