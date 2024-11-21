@@ -61,7 +61,6 @@ const Home = async ({ searchParams }: SearchParams) => {
     return matchesQuery && matchesFilter;
   });
 
-  console.log(questions);
   return (
     <>
       <section className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
