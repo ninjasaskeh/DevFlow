@@ -1,7 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
-import { Simulate } from "react-dom/test-utils";
 
-import error = Simulate.error;
+import logger from "@/lib/logger";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
@@ -22,6 +21,7 @@ declare global {
 let cached = global.mongoose;
 
 if (!cached) {
+  logger.info("Using existing mongoose connection");
   cached = global.mongoose = { conn: null, promise: null };
 }
 
@@ -36,11 +36,11 @@ const dbConnect = async (): Promise<Mongoose> => {
         dbName: "devflow",
       })
       .then((result) => {
-        console.log("Connected to MongoDB");
+        logger.info("Connected to MongoDB");
         return result;
       })
       .catch((error) => {
-        console.log("Error connecting to MongoDB", error);
+        logger.error("Error connecting to MongoDB", error);
         throw error;
       });
   }
