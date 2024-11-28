@@ -29,11 +29,11 @@ export async function POST(request: Request) {
 
     const validatedData = AccountSchema.parse(body);
 
-    const existingUser = await Account.findOne({
+    const existingAccount = await Account.findOne({
       provider: validatedData.provider,
       providerAccountId: validatedData.providerAccountId,
     });
-    if (existingUser)
+    if (existingAccount)
       throw new ForbiddenError("An account already exists for this provider");
 
     const newAccount = await Account.create(validatedData);

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 import Account from "@/database/account.model";
-import User from "@/database/user.model";
 import handleError from "@/lib/handlers/error";
 import { NotFoundError, ValidationError } from "@/lib/http-errors";
 import dbConnect from "@/lib/mongoose";
@@ -65,11 +64,11 @@ export async function PUT(
     if (!validatedData.success)
       throw new ValidationError(validatedData.error.flatten().fieldErrors);
 
-    const updatedAccount = await User.findByIdAndUpdate(id, validatedData, {
+    const updatedAccount = await Account.findByIdAndUpdate(id, validatedData, {
       new: true,
     });
 
-    if (!updatedAccount) throw new NotFoundError("User");
+    if (!updatedAccount) throw new NotFoundError("Account");
 
     return NextResponse.json(
       { success: true, data: updatedAccount },
