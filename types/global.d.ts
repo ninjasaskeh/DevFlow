@@ -37,3 +37,8 @@ type ErrorResponse = ActionResponse<undefined> & { success: false };
 
 type APIErrorResponse = NextResponse<ErrorResponse>;
 type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
+
+interface RouteParams {
+  params: Promise<Record<string, string>>; // params: /questions/:id
+  searchParams: Promise<Record<string, string>>; // searcParams: /questions?tag=javascript
+}

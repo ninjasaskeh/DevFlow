@@ -30,8 +30,8 @@ export const sidebarLinks = [
     label: "Profile",
   },
   {
-    imgURL: "/icons/question.svg",
-    route: "/ask-question",
-    label: "Ask a question",
+    imgURL: "/icons/questions.svg",
+    route: "/ask-questions",
+    label: "Ask a questions",
   },
 ];
