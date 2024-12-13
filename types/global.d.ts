@@ -1,5 +1,3 @@
-import { NextResponse } from "next/server";
-
 interface Tag {
   _id: string;
   name: string;
@@ -14,6 +12,7 @@ interface Author {
 interface Question {
   _id: string;
   title: string;
+  content: string;
   tags: Tag[];
   author: Author;
   createdAt: Date;
@@ -41,4 +40,12 @@ type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
 interface RouteParams {
   params: Promise<Record<string, string>>; // params: /questions/:id
   searchParams: Promise<Record<string, string>>; // searcParams: /questions?tag=javascript
+}
+
+interface PaginatedSearchParams {
+  page?: number;
+  pageSize?: number;
+  query?: string;
+  filter?: string;
+  sort?: string;
 }

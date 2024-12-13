@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import ROUTES from "@/constants/routes";
 import { toast } from "@/hooks/use-toast";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { AskQuestionSchema } from "@/lib/valitadion";
 
 // This is the only place InitializedMDXEditor is imported directly.
@@ -32,7 +32,12 @@ const Editor = dynamic(() => import("@/components/editor"), {
   ssr: false,
 });
 
-const QuestionForm = () => {
+interface Params {
+  question?: Question;
+  isEdit?: boolean;
+}
+
+const QuestionForm = ({ question, isEdit = false }: Params) => {
   const router = useRouter();
   const editorRef = useRef<MDXEditorMethods>(null);
   const [isPending, startTransition] = useTransition();
@@ -40,9 +45,9 @@ const QuestionForm = () => {
   const form = useForm<z.infer<typeof AskQuestionSchema>>({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      tags: [],
+      title: question?.title || "",
+      content: question?.content || "",
+      tags: question?.tags.map((tag) => tag.name) || [],
     },
   });
 
@@ -50,7 +55,6 @@ const QuestionForm = () => {
     e: React.KeyboardEvent<HTMLInputElement>,
     field: { value: string[] },
   ) => {
-    console.log(field, e);
     if (e.key === "Enter") {
       e.preventDefault();
       const tagInput = e.currentTarget.value.trim();
@@ -90,6 +94,29 @@ const QuestionForm = () => {
     data: z.infer<typeof AskQuestionSchema>,
   ) => {
     startTransition(async () => {
+      if (isEdit && question) {
+        const result = await editQuestion({
+          questionId: question?._id,
+          ...data,
+        });
+
+        if (result.success) {
+          toast({
+            title: "Success",
+            description: "Question updated successfully",
+          });
+
+          if (result.data) router.push(ROUTES.QUESTION(result.data._id));
+        } else {
+          toast({
+            title: `Error ${result.status}`,
+            description: result?.error?.message || "Something went wrong",
+            variant: "destructive",
+          });
+        }
+        return;
+      }
+
       const result = await createQuestion(data);
 
       if (result.success) {
@@ -199,7 +226,7 @@ const QuestionForm = () => {
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Add up to 3 tags to describe what your question is about. You
-                need to press enter to add tag.
+                need to press enter to add a tag.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -215,10 +242,10 @@ const QuestionForm = () => {
             {isPending ? (
               <>
                 <ReloadIcon className="mr-2 size-4 animate-spin" />
-                <span>Submitting...</span>
+                <span>Submitting</span>
               </>
             ) : (
-              <>Ask a Question</>
+              <>{isEdit ? "Edit" : "Ask a Question"}</>
             )}
           </Button>
         </div>

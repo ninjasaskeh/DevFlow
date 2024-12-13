@@ -1,7 +1,6 @@
 import handleError from "@/lib/handlers/error";
 import { RequestError } from "@/lib/http-errors";
 import logger from "@/lib/logger";
-import { ActionResponse } from "@/types/global";
 
 interface FetchOptions extends RequestInit {
   timeout?: number;

@@ -5,7 +5,6 @@ import handleError from "@/lib/handlers/error";
 import { ValidationError } from "@/lib/http-errors";
 import dbConnect from "@/lib/mongoose";
 import { UserSchema } from "@/lib/valitadion";
-import { APIErrorResponse } from "@/types/global";
 
 export async function GET() {
   try {

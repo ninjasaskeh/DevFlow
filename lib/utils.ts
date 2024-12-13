@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getDevIconClassName = (techName: string) => {
+export const getDeviconClassName = (techName: string) => {
   const normalizedTechName = techName.replace(/[ .]/g, "").toLowerCase();
 
   return techMap[normalizedTechName]
@@ -15,8 +15,10 @@ export const getDevIconClassName = (techName: string) => {
     : "devicon-devicon-plain";
 };
 
-export const getTimeStamp = (date: Date) => {
+export const getTimeStamp = (createdAt: Date) => {
+  const date = new Date(createdAt);
   const now = new Date();
+
   const secondsAgo = Math.floor((now.getTime() - date.getTime()) / 1000);
 
   const units = [
